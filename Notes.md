@@ -51,6 +51,22 @@ The syntax is defined as:
 
 Use the Heroku Local command-line tool to run your app locally. For more information see the [Heroku Local](https://devcenter.heroku.com/articles/heroku-local) article.
 
+#### Set up your local environment variables
+
+[config vars](https://devcenter.heroku.com/articles/config-vars)
+
+The `.env` file lets you capture all the config vars that you need in order to run your app locally. When you start your app using any of the `heroku local` commands, the `.env` file is read, and each name/value pair is inserted into the environment, to mimic the action of config vars.
+
+#### Copy Heroku config vars to your local .env file
+
+`heroku config:get CONFIG-VAR-NAME -s  >> .env`
+
+Keep in mind that your deployed production app may be connecting to different services than your local development app. For example, your deployed production app might have a `DATABASE_URL` config var that references a Heroku Postgres database, but your local app might have a `DATABASE_URL` variable in the `.env` file that references your local installation of Postgres.
+
+#### Run your app locally using Foreman
+
+As an alternative to using Heroku Local, you can still use Foreman to run your app locally. It’s not officially supported but if you want to use it, you can get more information by visiting [the Foreman GitHub repository](https://github.com/ddollar/foreman).
+
 ## [Heroku Postgres](https://devcenter.heroku.com/articles/heroku-postgresql)
 
 ### Performance analytics
@@ -88,6 +104,15 @@ performs a number of useful health and diagnostic checks that help analyze and o
 `heroku pg`
 
 `heroku pg:diagnose --app sushi` performs a number of useful health and diagnostic checks that help analyze and optimize the performance of a database.
+
+`heroku local`: Start your app locally.
+- `heroku local web`: To locally start a particular process type, specify the process type. For example, “web” or “worker”.
+- `heroku local -f Procfile.test`: To use a different Procfile.
+- `heroku local -e .env.test`: To use a different environment file.
+- `heroku local -p 7000`: To use a different port. If you don’t specify a port, 5000 is used.
+- `heroku help local`: help.
+
+`heroku config`: To view all of your app’s config vars.
 
 # [Grunt](http://gruntjs.com/getting-started)
 
