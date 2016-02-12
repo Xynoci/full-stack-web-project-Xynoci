@@ -102,8 +102,11 @@ performs a number of useful health and diagnostic checks that help analyze and o
 [`heroku releases`](https://devcenter.heroku.com/articles/releases): display all application deployments and configuration changes.
 
 `heroku pg`
-
-`heroku pg:diagnose --app sushi` performs a number of useful health and diagnostic checks that help analyze and optimize the performance of a database.
+- `heroku pg:diagnose --app sushi` performs a number of useful health and diagnostic checks that help analyze and optimize the performance of a database.
+- `heroku pg:psql gray`: more than one database, specify the database to connect to (just the color works as a shorthand) as the first argument to the command.
+- `heroku pg:pull HEROKU_POSTGRESQL_RED mylocaldb --app sushi` = `heroku pg:pull sushi::RED mylocaldb`: This command will create a new local database named “mylocaldb” and then pull data from database at `DATABASE_URL` from the app “sushi”. In order to prevent accidental data overwrites and loss, the local database *must not exist*. You will be prompted to drop an already existing local database before proceeding.
+- `PGUSER=postgres PGPASSWORD=password heroku pg:pull HEROKU_POSTGRESQL_MAGENTA mylocaldb --app sushi`
+- `heroku pg:push mylocaldb HEROKU_POSTGRESQL_MAGENTA --app sushi`: This command will take the local database “mylocaldb” and push it to the database at `DATABASE_URL` on the app “sushi”. In order to prevent accidental data overwrites and loss, the remote database *must be empty*. You will be prompted to `pg:reset` an already a remote database that is not empty.
 
 `heroku local`: Start your app locally.
 - `heroku local web`: To locally start a particular process type, specify the process type. For example, “web” or “worker”.
@@ -113,6 +116,8 @@ performs a number of useful health and diagnostic checks that help analyze and o
 - `heroku help local`: help.
 
 `heroku config`: To view all of your app’s config vars.
+
+`heroku keys:add`, `heroku keys:remove adam@workstation.local`, `heroku keys:clear`, `heroku keys:remove DVj3R4W`(portion of public key), `heroku keys`
 
 # [Grunt](http://gruntjs.com/getting-started)
 

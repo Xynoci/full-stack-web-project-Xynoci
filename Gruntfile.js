@@ -83,5 +83,6 @@ module.exports = function(grunt) {
   grunt.registerTask('test', ['validation', 'jshint']);
 
   // the default task can be run just by typing "grunt" on the command line
-  grunt.registerTask('default', ['validation', 'jshint', 'concat', 'uglify', 'cssmin']);
+  // grunt.registerTask('default', ['validation', 'jshint', 'concat', 'uglify', 'cssmin']);
+  grunt.registerTask('default', ['uglify']);
 };
