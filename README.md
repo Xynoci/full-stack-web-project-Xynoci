@@ -1,3 +1,24 @@
+# Notes
+[Heroku](./Notes.md#heroku)
+* [Commands](./Notes.md#commands)
+* [The Celadon Cedar-14 Stack](./Notes.md#the-celadon-cedar-14-stack)
+    - [Intro.](./Notes.md#intro)
+    - [Advanced HTTP capabilities](./Notes.md#advanced-http-capabilities)
+* [Process Types and the Procfile](./Notes.md#process-types-and-the-procfile)
+    - [Intro.](./Notes.md#intro-1)
+    - [Procfile naming and location](./Notes.md#procfile-naming-and-location)
+    - [Declaring process types](./Notes.md#declaring-process-types)
+    - [Developing locally](./Notes.md#developing-locally)
+* [Heroku Postgres](./Notes.md#heroku-postgres)
+    - [Performance analytics](./Notes.md#performance-analytics)
+[Grunt](./Notes.md#grunt)
+* [Working with an existing Grunt project](./Notes.md#working-with-an-existing-grunt-project)
+* [Preparing a new Grunt project](./Notes.md#preparing-a-new-grunt-project)
+    - [`package.json`](./Notes.md#packagejson)
+* [The Gruntfile](./Notes.md#the-gruntfile)
+[Footnotes](./Notes.md#footnotes)
+
+
 # java-getting-started
 
 A barebones Java app, which can easily be deployed to Heroku.  
