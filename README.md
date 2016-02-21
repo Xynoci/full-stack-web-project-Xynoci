@@ -15,7 +15,7 @@
     - [Working with an existing Grunt project](./Notes.md#working-with-an-existing-grunt-project)
     - [Preparing a new Grunt project](./Notes.md#preparing-a-new-grunt-project)
         + [`package.json`](./Notes.md#packagejson)
-    -[The Gruntfile](./Notes.md#the-gruntfile)
+    - [The Gruntfile](./Notes.md#the-gruntfile)
 * [Footnotes](./Notes.md#footnotes)
 
 # java-getting-started
