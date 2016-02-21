@@ -4,7 +4,7 @@
 ################################# maven
 target/
 .env
-/target-grunt/
+/target-grunt/*.*
 
 pom.xml.tag
 pom.xml.releaseBackup
