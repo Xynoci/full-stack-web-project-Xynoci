@@ -21,7 +21,7 @@ module.exports = function(grunt) {
       }
     },
     jshint: {
-      files: ['Gruntfile.js', '<%= srcFolder %>/public/js/**/*.js', '<%= testFolder %>/public/js/**/*.js'],
+      files: ['Gruntfile.js', '<%= srcFolder %>/public/js/*.js', '<%= testFolder %>/public/js/*.js'],
       options: {
         globals: {
           jQuery: true,
@@ -61,7 +61,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: '<%= srcFolder %>/',
-          src: ['public/stylesheets/*.css', '!public/stylesheets/**/*.min.css'],
+          src: ['public/stylesheets/*.css', '!public/stylesheets/*.min.css'],
           dest: '<%= distFolder %>',
           ext: '.min.css'
         }]
