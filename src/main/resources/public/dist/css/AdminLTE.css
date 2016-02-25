@@ -26,30 +26,7 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
 }
-/* Layout */
-.wrapper {
-  min-height: 100%;
-  position: static;
-  overflow: hidden;
-}
-.wrapper:before,
-.wrapper:after {
-  content: " ";
-  display: table;
-}
-.wrapper:after {
-  clear: both;
-}
-.layout-boxed .wrapper {
-  max-width: 1250px;
-  margin: 0 auto;
-  min-height: 100%;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
-  position: relative;
-}
-.layout-boxed {
-  background: url('../img/boxed-bg.jpg') repeat fixed;
-}
+
 /* Fixed layout */
 .fixed .main-header,
 .fixed .main-sidebar,
