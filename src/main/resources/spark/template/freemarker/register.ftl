@@ -32,14 +32,17 @@
         <div class="register-logo">
             <a href="seats.html"><b>Lib</b>HIGH</a>
         </div>
+        <div id="err-message-container">
+            <p id="err-message">${errMessage!""}</p>
+        </div>
         <div class="register-box-body">
             <p class="login-box-msg">Register a new membership</p>
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" id="userName" placeholder="Full name">
+                <input type="text" class="form-control" id="userName" placeholder="Full name" value="${userName}">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="email" class="form-control" id="userAccount" placeholder="Email">
+                <input type="email" class="form-control" id="userAccount" placeholder="Email" value="${userAccount}">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
