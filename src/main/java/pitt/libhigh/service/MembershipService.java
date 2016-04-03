@@ -60,8 +60,20 @@ class MembershipService {
             return gson.toJson(attributes);
         });
 
-        // redirecting to index page, if possible, automatically login and rendering index.ftl.
+        // redirecting to index page.
         get("/index", (request, response) -> {
+            HashMap<String, Object> attributes = new HashMap<>();
+            Session session = request.session(true);
+            if (session.attribute("user") != null) {
+                User u = (User) session.attribute("user");
+                u.setuserName(tempUserName);
+                attributes.put("user", u);
+            }
+            return new ModelAndView(attributes, "index.ftl");
+        }, new FreeMarkerEngine());
+
+        // login, add user object to session.
+        get("/login", (request, response) -> {
             HashMap<String, Object> attributes = new HashMap<>();
             Session session = request.session(true);
             String userAccount = request.queryParams("userAccount");
@@ -76,15 +88,11 @@ class MembershipService {
 
             if (u != null) {
                 session.attribute("user", u);
-                u.setuserName(tempUserName );
-                attributes.put("user", u);
             } else {
                 // TODO: user does not exist.
             }
-
-
-            return new ModelAndView(attributes, "index.ftl");
-        }, new FreeMarkerEngine());
+            return "success";
+        });
 
         // return the id of the logged user.
         get("/loggedUserId", (request, response) -> {
@@ -96,14 +104,14 @@ class MembershipService {
             return gson.toJson(attributes);
         });
 
-        get("/logout",(request, response) -> {
+        get("/logout", (request, response) -> {
             Session session = request.session();
             if (session.attribute("user") != null) {
                 session.removeAttribute("user");
                 System.out.println("Removed.");
             }
             response.status(200);
-            return null;
+            return "success";
         });
     }
 

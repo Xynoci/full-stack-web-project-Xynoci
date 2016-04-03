@@ -4,17 +4,15 @@
 $(document).ready(function () {
     $.getJSON("/loggedUserId", function(data){
         if(data.hasOwnProperty("userId")){
-            $('.login-menu').css('display','none');
+            $('.login-menu .dropdown-toggle').css('display','none');
             $(".user-menu .dropdown-toggle").css("display","block");
         }else{
             $('.login-menu a').html('Sign In');
-            $('.login-menu').css('display','block');
+            $('.login-menu .dropdown-toggle').css('display','block');
             $(".user-menu .dropdown-toggle").css("display","none");
         }
     });
     
-    
-
 });
 
 // Sign out
@@ -22,7 +20,7 @@ $('.pull-right a').on("click", function () {
     $.get("/logout", function () {
         console.log('feedback.');
     });
-    window.location = '/index.html';
+    window.location = '/index';
 });
 
 // Sign in mask switch on/off

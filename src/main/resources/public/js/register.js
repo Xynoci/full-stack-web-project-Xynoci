@@ -23,6 +23,7 @@ $(document).ready(function () {
                     $("#err-message").html(user.status);
                     if (user.hasOwnProperty('notExist')) {
                         if (user.notExist) {
+                            $.get("/login",data);
                             window.location = '/index';
                         } else {
                             $("#userAccount").val("");

@@ -19,6 +19,8 @@ public class User {
     private final UUID userId;
     private final String userAccount;
     private Long registration; // Registration time in milliseconds.
+
+    private String registrationString;
     private String password;
     private String userName;
     private String gender;
@@ -36,7 +38,7 @@ public class User {
         Date date = new Date();
         this.userId = userId;
         this.userAccount = userAccount;
-        registration = date.getTime();
+        registration = System.currentTimeMillis();
         this.password = password;
         this.userName = userName;
         this.gender = "";
@@ -48,6 +50,10 @@ public class User {
         this.postCount = 0;
         this.followerCount = 0;
         this.followingCount = 0;
+
+        String d = new Date(this.registration).toString();
+
+        this.registrationString = d.substring(4, 11) + "." + d.substring(24);
     }
 
     public void addFollower(int number) {
@@ -148,6 +154,14 @@ public class User {
 
     public void setRegistration(Long registration) {
         this.registration = registration;
+    }
+
+    public String getRegistrationString() {
+        return registrationString;
+    }
+
+    public void setRegistrationString(String registrationString) {
+        this.registrationString = registrationString;
     }
 
     public boolean isHasAvatar() {
