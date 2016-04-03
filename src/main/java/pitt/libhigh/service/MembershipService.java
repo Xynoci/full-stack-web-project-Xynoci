@@ -1,62 +1,121 @@
 package pitt.libhigh.service;
 
-import java.util.HashMap;
-
-import static spark.Spark.*;
-
+import com.google.gson.Gson;
+import pitt.libhigh.bean.User;
+import pitt.libhigh.dao.MembershipDao;
 import spark.ModelAndView;
+import spark.Session;
 import spark.template.freemarker.FreeMarkerEngine;
 
-import pitt.libhigh.dao.MembershipDao;
+import java.util.HashMap;
+import java.util.UUID;
+
+import static spark.Spark.*;
 
 /**
  * Created by Xynoci.
  */
-public class MembershipService {
+class MembershipService {
 
-    public static void main(String[] args) {
-        port(Integer.valueOf(System.getenv("PORT")));
-        staticFileLocation("/public");
+    private Gson gson = new Gson();
+    private MembershipDao md = new MembershipDao();
+    private String tempUserName;
 
-        MembershipService ms = new MembershipService();
-    }
-
-    public MembershipService() {
+    /**
+     * Membership service response to requests handling register, login and logout.
+     */
+    MembershipService() {
         super();
 
+        // registration process.
+        // front end will stay on the same page if user notExist = false, or redirect to /index if user notExist = true.
         post("/register", (request, response) -> {
+
             HashMap<String, Object> attributes = new HashMap<>();
             String userName = request.queryParams("userName");
             String userAccount = request.queryParams("userAccount");
+            String password = request.queryParams("password");
             attributes.put("userName", userName);
             attributes.put("userAccount", userAccount);
+            tempUserName = userName;
 
             System.out.println(userName + ", " + userAccount);
 
-            MembershipService ms = new MembershipService();
             try {
-                if (ms.checkExistence(userAccount)) {
-                    System.out.println("User " + userAccount + " is existed.");
-                    attributes.put("errMessage", "Email has already been used.");
-                    return new ModelAndView(attributes, "register.ftl");
+                if (this.checkNotExist(userAccount)) {
+                    User u = new User(userAccount, password, userName, UUID.randomUUID());
+                    md.insertUser(u);
+                    System.out.println(this.getClass() + ": User " + userAccount + " registered successfully.");
+                    attributes.put("notExist", true);
+                    attributes.put("status", "Registration succeeded, Redirecting page...");
                 } else {
-                    return new ModelAndView(attributes, "seats.ftl");
+                    System.out.println(this.getClass() + ": User " + userAccount + " exists.");
+                    attributes.put("notExist", false);
+                    attributes.put("status", "Email has been registered, pleas use other ones.");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                attributes.put("errMessage", "Server Error.");
-                return new ModelAndView(attributes, "register.ftl");
+                attributes.put("status", "Server Error. One more try, please.");
             }
+            return gson.toJson(attributes);
+        });
+
+        // redirecting to index page, if possible, automatically login and rendering index.ftl.
+        get("/index", (request, response) -> {
+            HashMap<String, Object> attributes = new HashMap<>();
+            Session session = request.session(true);
+            String userAccount = request.queryParams("userAccount");
+            String password = request.queryParams("password");
+
+            User u = null;
+            try {
+                u = md.selectByUserAccount(userAccount, password);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            if (u != null) {
+                session.attribute("user", u);
+                u.setuserName(tempUserName );
+                attributes.put("user", u);
+            } else {
+                // TODO: user does not exist.
+            }
+
+
+            return new ModelAndView(attributes, "index.ftl");
         }, new FreeMarkerEngine());
+
+        // return the id of the logged user.
+        get("/loggedUserId", (request, response) -> {
+            HashMap<String, Object> attributes = new HashMap<>();
+            Session session = request.session(true);
+            if (session.attribute("user") != null) {
+                attributes.put("userId", ((User) session.attribute("user")).getUserId());
+            }
+            return gson.toJson(attributes);
+        });
+
+        get("/logout",(request, response) -> {
+            Session session = request.session();
+            if (session.attribute("user") != null) {
+                session.removeAttribute("user");
+                System.out.println("Removed.");
+            }
+            response.status(200);
+            return null;
+        });
     }
 
-
-    private boolean checkExistence(String userAccount) throws Exception {
-        MembershipDao md = new MembershipDao();
+    private boolean checkNotExist(String userAccount) {
+        boolean notExist = true;
         try {
-            return md.checkUserEmailExistence(userAccount);
+            notExist = md.notExist(userAccount);
         } catch (Exception e) {
-            throw new Exception(this.getClass() + ".checkExistence()");
+            System.out.println(this.getClass() + ".checkExistence()");
+            e.printStackTrace();
         }
+        return notExist;
     }
+
 }

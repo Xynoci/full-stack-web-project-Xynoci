@@ -1,1 +1,1 @@
-web:    java -cp target/classes:target/dependency/* pitt.libhigh.service.MembershipService
+web:    java -cp target/classes:target/dependency/* pitt.libhigh.service.HostService
