@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" >
+
+    <xs:element name="subscription">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="group" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="groupId" type="UUID" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="createdBy" type="UUID" maxOccurs="1"/>
+                            <xs:element name="groupName" type="xs:string" minOccurs="1"/>
+                            <xs:element name="latestPost" type="xs:string" minOccurs="0"/>
+                            <xs:element name="hasBgImg" type="xs:string" default="false" />
+                            <xs:element name="createdAtString" type="xs:dateTime" maxOccurs="1"/>
+                            <xs:element name="introMessage" type="xs:string" minOccurs="0"/>
+                            <xs:element name="Category" type="xs:string" minOccurs="0"/>
+                            <xs:element name="status" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                            <xs:element name="memberCount" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="createdBy" type="UUID" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="UUID">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-zA-Z0-9-]{36}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

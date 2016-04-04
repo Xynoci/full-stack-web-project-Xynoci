@@ -33,15 +33,18 @@
             <a href="./seats.html"><b>Lib</b>HIGH</a>
         </div>
         <!-- /.login-logo -->
+        <div id="info-message-container">
+            <p id="info-message"> </p>
+        </div>
         <div class="login-box-body">
             <p class="login-box-msg">Sign in to start your session</p>
             <form action="./seats.html" method="post">
                 <div class="form-group has-feedback">
-                    <input type="email" class="form-control" placeholder="Email">
+                    <input type="email" class="form-control" id="sign-in-userAccount" placeholder="Email">
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                    <input type="password" class="form-control" placeholder="Password">
+                    <input type="password" class="form-control" id="sign-in-pwd" placeholder="Password">
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <div class="row">
@@ -54,7 +57,7 @@
                     </div>
                     <!-- /.col -->
                     <div class="col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                        <button type="button" class="btn btn-primary btn-block btn-flat">Sign In</button>
                     </div>
                     <!-- /.col -->
                 </div>
@@ -168,7 +171,7 @@
                         <#if user??&&user.hasAvatar>
                             <img src="dist/img/${user.userId}/a-160x160.jpg" class="user-image" alt="User Image">
                         <#else>
-                            <img src="dist/img/default/a-160x160.jpg" class="user-image" alt="User Image">
+                            <img src="dist/img/user/default/a-160x160.jpg" class="user-image" alt="User Image">
                         </#if>
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
                             <span class="hidden-xs">
@@ -181,10 +184,10 @@
                             <!-- The user image in the menu -->
                             <li class="user-header">
                             <#if user??&&user.hasAvatar >
-                                <img src="dist/img/${user.userId}/a-160x160.jpg" class="user-circle"
+                                <img src="dist/img/user/${user.userId}/a-160x160.jpg" class="user-circle"
                                      alt="User Image">
                             <#else>
-                                <img src="dist/img/default/a-160x160.jpg" class="user-circle" alt="User Image">
+                                <img src="dist/img/user/default/a-160x160.jpg" class="user-circle" alt="User Image">
                             </#if>
                                 <p>
                                 <#if user??>
@@ -280,63 +283,12 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <ul class="products-list product-list-in-box">
-                                <li class="item">
-                                    <div class="product-img">
-                                        <img src="dist/img/default-50x50.gif" alt="Product Image">
-                                    </div>
-                                    <div class="product-info">
-                                        <a href="javascript#" class="product-title">Web Technology
-                                            <span class="label label-warning pull-right">34</span></a>
-                                            <span class="product-description">
-                                                How to survive from homework?
-                                                </span>
-                                    </div>
-                                </li>
-                                <!-- /.item -->
-                                <li class="item">
-                                    <div class="product-img">
-                                        <img src="dist/img/default-50x50.gif" alt="Product Image">
-                                    </div>
-                                    <div class="product-info">
-                                        <a href="javascript#" class="product-title">Data Mining
-                                            <span class="label label-info pull-right">19</span></a>
-                                            <span class="product-description">
-                                                Same question. Help me plz.
-                                                </span>
-                                    </div>
-                                </li>
-                                <!-- /.item -->
-                                <li class="item">
-                                    <div class="product-img">
-                                        <img src="dist/img/default-50x50.gif" alt="Product Image">
-                                    </div>
-                                    <div class="product-info">
-                                        <a href="javascript#" class="product-title">Cloud Computing<span
-                                                class="label label-danger pull-right">56</span></a>
-                                            <span class="product-description">
-                                                Your homework is nothing, try mine.
-                                                </span>
-                                    </div>
-                                </li>
-                                <!-- /.item -->
-                                <li class="item">
-                                    <div class="product-img">
-                                        <img src="dist/img/default-50x50.gif" alt="Product Image">
-                                    </div>
-                                    <div class="product-info">
-                                        <a href="javascript#" class="product-title">Interactive System Design
-                                            <span class="label label-success pull-right">5</span></a>
-                                            <span class="product-description">
-                                                Leave me alone.
-                                                </span>
-                                    </div>
-                                </li>
-                                <!-- /.item -->
+
                             </ul>
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer text-center">
-                            <a href="./groups.html" class="uppercase">View All Groups</a>
+                            <a href="#" class="uppercase" id="load-group">Load More</a>
                         </div>
                         <!-- /.box-footer -->
                     </div>

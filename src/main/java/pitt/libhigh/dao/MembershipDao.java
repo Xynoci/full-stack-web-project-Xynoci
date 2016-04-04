@@ -45,7 +45,7 @@ public class MembershipDao {
                     System.out.println(this.getClass() + ".notExist: Could not close connection to database.");
                 }
         }
-        return date.getTime() % 9 != 0;
+        return System.currentTimeMillis() % 9 != 0;
     }
 
     public User selectByUserAccount(String userAccount, String password) throws Exception {

@@ -3,6 +3,7 @@ package pitt.libhigh.service;
 import com.google.gson.Gson;
 import pitt.libhigh.bean.User;
 import pitt.libhigh.dao.MembershipDao;
+import pitt.libhigh.utils.ServiceUtils;
 import spark.ModelAndView;
 import spark.Session;
 import spark.template.freemarker.FreeMarkerEngine;
@@ -19,14 +20,18 @@ class MembershipService {
 
     private Gson gson = new Gson();
     private MembershipDao md = new MembershipDao();
-    private String tempUserName;
+    private ServiceUtils su = new ServiceUtils();
+    private String tempUserName = "tempUserName";
 
     /**
      * Membership service response to requests handling register, login and logout.
      */
     MembershipService() {
         super();
+        this.startServe();
+    }
 
+    private void startServe() {
         // registration process.
         // front end will stay on the same page if user notExist = false, or redirect to /index if user notExist = true.
         post("/register", (request, response) -> {
@@ -64,7 +69,7 @@ class MembershipService {
         get("/index", (request, response) -> {
             HashMap<String, Object> attributes = new HashMap<>();
             Session session = request.session(true);
-            if (session.attribute("user") != null) {
+            if (su.hasUserLoggedIn(request, response)) {
                 User u = (User) session.attribute("user");
                 u.setuserName(tempUserName);
                 attributes.put("user", u);
@@ -91,7 +96,8 @@ class MembershipService {
             } else {
                 // TODO: user does not exist.
             }
-            return "success";
+            attributes.put("status","Sign in succeeded, Redirecting page...");
+            return gson.toJson(attributes);
         });
 
         // return the id of the logged user.
@@ -100,13 +106,14 @@ class MembershipService {
             Session session = request.session(true);
             if (session.attribute("user") != null) {
                 attributes.put("userId", ((User) session.attribute("user")).getUserId());
+                System.out.println(attributes.get("userId"));
             }
             return gson.toJson(attributes);
         });
 
         get("/logout", (request, response) -> {
             Session session = request.session();
-            if (session.attribute("user") != null) {
+            if (su.hasUserLoggedIn(request, response)) {
                 session.removeAttribute("user");
                 System.out.println("Removed.");
             }

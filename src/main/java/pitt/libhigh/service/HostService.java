@@ -30,6 +30,6 @@ public class HostService {
         staticFileLocation("/public");
 
         MembershipService ms = new MembershipService();
-
+        GroupService gs = new GroupService();
     }
 }
