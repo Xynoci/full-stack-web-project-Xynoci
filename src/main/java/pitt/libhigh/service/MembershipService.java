@@ -66,6 +66,17 @@ class MembershipService {
         });
 
         // redirecting to index page.
+        get("/", (request, response) -> {
+            HashMap<String, Object> attributes = new HashMap<>();
+            Session session = request.session(true);
+            if (su.hasUserLoggedIn(request, response)) {
+                User u = (User) session.attribute("user");
+                u.setuserName(tempUserName);
+                attributes.put("user", u);
+            }
+            return new ModelAndView(attributes, "index.ftl");
+        }, new FreeMarkerEngine());
+
         get("/index", (request, response) -> {
             HashMap<String, Object> attributes = new HashMap<>();
             Session session = request.session(true);
@@ -96,7 +107,7 @@ class MembershipService {
             } else {
                 // TODO: user does not exist.
             }
-            attributes.put("status","Sign in succeeded, Redirecting page...");
+            attributes.put("status", "Sign in succeeded, Redirecting page...");
             return gson.toJson(attributes);
         });
 
