@@ -53,7 +53,7 @@ public class User {
 
         String d = new Date(this.registration).toString();
 
-        this.registrationString = d.substring(4, 11) + "." + d.substring(24);
+        this.registrationString = d.substring(4, 10) + ". " + d.substring(24);
     }
 
     public void addFollower(int number) {

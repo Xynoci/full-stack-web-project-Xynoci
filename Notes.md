@@ -43,7 +43,14 @@
 
 [`heroku releases`](https://devcenter.heroku.com/articles/releases): display all application deployments and configuration changes.
 
+`Postgres`
+- `heroku addons:create heroku-postgresql:<PLANNAME>`: Heroku Postgres can be attached to a Heroku application via the CLI.
+- `heroku addons:create heroku-postgresql:hobby-dev --as USERS_DB`
+- `heroku config -s | grep HEROKU_POSTGRESQL`: `DATABASE_URL` will be given to the database if it is the first one for the application, otherwise the `HEROKU_POSTGRESQL_COLOR_URL` will be created.
+
 `heroku pg`
+- `heroku pg:promote HEROKU_POSTGRESQL_RED`: On apps with multiple databases, you can set the primary database.
+- `heroku pg:wait`: to track their status.
 - `heroku pg:diagnose --app sushi` performs a number of useful health and diagnostic checks that help analyze and optimize the performance of a database.
 - `heroku pg:psql gray`: more than one database, specify the database to connect to (just the color works as a shorthand) as the first argument to the command.
 - `heroku pg:pull HEROKU_POSTGRESQL_RED mylocaldb --app sushi` = `heroku pg:pull sushi::RED mylocaldb`: Create a new local database named “mylocaldb” and then pull data from database at `HEROKU_POSTGRESQL_RED` from the app “sushi”. In order to prevent accidental data overwrites and loss, the local database *must not exist*. You will be prompted to drop an already existing local database before proceeding.
